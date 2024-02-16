@@ -74,6 +74,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             Debug.Log("All levels are loaded.");
+            SceneManager.LoadScene("end");
             // 如果已经加载完所有关卡，可以在这里执行其他操作，比如显示游戏结束画面等
         }
     }
@@ -86,9 +87,10 @@ public class LevelManager : MonoBehaviour
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1).name);
         }
 
+        // Load new scene
         foreach (string sceneName in scenesToLoad)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
             while (!asyncLoad.isDone)
             {
                 yield return null;
@@ -96,16 +98,16 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-[System.Serializable]
-public class LevelData
-{
-    public int level;
-    public List<string> scenes;
-}
-
-[System.Serializable]
-public class LevelList
-{
-    public List<LevelData> levels;
-}
+    [System.Serializable]
+    public class LevelData
+    {
+        public int level;
+        public List<string> scenes;
     }
+
+    [System.Serializable]
+    public class LevelList
+    {
+        public List<LevelData> levels;
+    }
+}

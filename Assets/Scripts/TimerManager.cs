@@ -29,7 +29,9 @@ public class TimerManager : MonoBehaviour
         }
         else
         {
+            // 如果实例已存在，则销毁当前对象
             Destroy(gameObject);
+            return;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -67,6 +69,7 @@ public class TimerManager : MonoBehaviour
                 ShowSelectedImage(); // 顯示選定的圖片
                 currentTime = 0f; // 將時間設置為 0，以防止負數顯示
                 UpdateTimerText();
+                SceneManager.LoadScene("end");
             }
         }
 
@@ -122,17 +125,16 @@ public class TimerManager : MonoBehaviour
         // 在 OnSceneLoaded 中重新初始化 window
         window = transform;
 
-        // 檢查 TimerManager 是否為 null
-        if (Instance != null)
+        if (Instance == null)
         {
-            if (scene.buildIndex == 1)
-            {
-                Instance.ResumeTimer();
-            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else
+
+        // 恢复计时器，但只有在计时器当前处于暂停状态时才恢复
+        if (isTimerPaused)
         {
-            Debug.LogWarning("TimerManager is null.");
+            ResumeTimer();
         }
     }
 

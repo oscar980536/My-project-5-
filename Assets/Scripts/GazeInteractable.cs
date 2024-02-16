@@ -30,6 +30,8 @@ namespace TS.GazeInteraction
 
         public delegate void OnActivated(GazeInteractable interactable);
         public event OnActivated Activated;
+        public CheckboxController checkboxController;
+        public TimerManager timerManager; // 引用计时器管理器
 
         [Header("Configuration")]
         [SerializeField] private bool _isActivable;
@@ -94,6 +96,9 @@ namespace TS.GazeInteraction
             Activated?.Invoke(this);
             OnGazeActivated?.Invoke();
             soundController.PlaySound2();
+            
+            if (timerManager != null)
+            timerManager.PauseTimer();
 
             if (successImage != null)
             {
@@ -104,6 +109,10 @@ namespace TS.GazeInteraction
 
         private IEnumerator HideSuccessImageAfterDelayAndLoadScene()
         {
+            if (checkboxController != null)
+            {
+                checkboxController.TriggerEvent();
+            }
             // 等待指定時間
             yield return new WaitForSeconds(displayDuration);
 

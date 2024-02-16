@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class level1 : MonoBehaviour
 {
     public Image okImage;
+    public CheckboxController checkboxController;
+    public TimerManager timerManager; // å¼•ç”¨è®¡æ—¶å™¨ç®¡ç†å™¨
     private bool isPlayerInside = false;
 
     void Start()
     {
         okImage.gameObject.SetActive(false);
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -20,7 +21,6 @@ public class level1 : MonoBehaviour
         {
             isPlayerInside = true;
 
-            // ¦bª±®a¶i¤J°Ï°ì®É¼È°±­p®É¾¹
             StartCoroutine(ShowImageAndLoadScene());
         }
     }
@@ -31,23 +31,30 @@ public class level1 : MonoBehaviour
         {
             isPlayerInside = false;
 
-            // ¦bª±®aÂ÷¶}°Ï°ì®ÉÄ~Äò­p®É¾¹
+            // åœ¨ç©å®¶é›¢é–‹å€åŸŸæ™‚ç¹¼çºŒè¨ˆæ™‚å™¨
+            if (timerManager != null)
             {
+                timerManager.ResumeTimer();
             }
         }
     }
 
     IEnumerator ShowImageAndLoadScene()
     {
-        yield return new WaitForSeconds(3f);
-
         if (isPlayerInside)
         {
+            checkboxController.TriggerEvent();
             okImage.gameObject.SetActive(true);
+            if (timerManager != null)
+            {
+                timerManager.PauseTimer();
+            }
 
             yield return new WaitForSeconds(4f);
 
             LevelManager.Instance.LoadNextLevel();
+
+            // åœ¨åŠ è½½ä¸‹ä¸€ä¸ªåœºæ™¯åæ¢å¤è®¡æ—¶å™¨
         }
     }
 }

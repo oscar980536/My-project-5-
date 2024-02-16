@@ -2660,7 +2660,6 @@ MonoBehaviour:
   successImage: {fileID: 539407014}
   displayDuration: 6
   soundController: {fileID: 1138606225}
-  nextSceneName: level_29
   OnGazeEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -2724,6 +2723,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -32.677, z: 0}
+--- !u!1 &1417445826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417445828}
+  - component: {fileID: 1417445827}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1417445827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417445826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7654787351ba4a409a937c4dc5364f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelsData: []
+--- !u!4 &1417445828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417445826}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 61.685753, y: 7.959791, z: -203.80145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1936332674
 GameObject:
   m_ObjectHideFlags: 0
@@ -107637,3 +107681,4 @@ SceneRoots:
   - {fileID: 9021560697036849466}
   - {fileID: 1397478270}
   - {fileID: 1181595295}
+  - {fileID: 1417445828}
