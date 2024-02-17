@@ -1,21 +1,21 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class Level4 : MonoBehaviour
 {
     public Image okImage;
+    public Image loadingImage; // 新增的圖片
     public CheckboxController checkboxController;
     public TimerManager timerManager; // 引用计时器管理器
     private bool isPlayerInside = false;
-    private bool isCoroutineRunning = false;
+    private bool isShowingImage = false;
 
     void Start()
     {
         okImage.gameObject.SetActive(false);
-        // 訂閱 CheckboxController 中的事件
-        checkboxController.OnEventTriggered += OnCheckboxEventTriggered;
+        loadingImage.gameObject.SetActive(false); // 隱藏 loadingImage
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,9 +23,9 @@ public class Level4 : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = true;
-            if (!isCoroutineRunning)
+            if (!isShowingImage)
             {
-                StartCoroutine(ShowImageAndLoadScene());
+                Invoke("ShowImageAndLoadScene", 10f);
             }
         }
     }
@@ -35,38 +35,53 @@ public class Level4 : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
-            if (isCoroutineRunning)
+            if (isShowingImage)
             {
-                StopCoroutine(ShowImageAndLoadScene());
-                isCoroutineRunning = false;
+                CancelInvoke("ShowImageAndLoadScene");
+                isShowingImage = false;
             }
         }
     }
 
-    IEnumerator ShowImageAndLoadScene()
+    void ShowImageAndLoadScene()
     {
-        isCoroutineRunning = true;
-        yield return new WaitForSeconds(10f);
-
         if (isPlayerInside)
         {
             // 觸發 CheckboxController 中的事件
             checkboxController.TriggerEvent();
+            okImage.gameObject.SetActive(true);
             if (timerManager != null)
             {
                 timerManager.PauseTimer();
             }
-            okImage.gameObject.SetActive(true);
-            yield return new WaitForSeconds(4f);
-            LevelManager.Instance.LoadNextLevel();
+            StartCoroutine(DelayBeforeShowingLoadingImage(2f));
         }
-
-        isCoroutineRunning = false;
     }
 
-    // CheckboxController 中的事件被觸發時調用
-    void OnCheckboxEventTriggered(int eventTriggerCount)
+    IEnumerator DelayBeforeShowingLoadingImage(float delay)
     {
-        // 在這裡處理事件被觸發時的邏輯
+        yield return new WaitForSeconds(delay); // 延遲 2 秒
+
+        // 顯示 loadingImage
+        loadingImage.gameObject.SetActive(true);
+
+        // 延遲 2 秒後加載下一個場景
+        StartCoroutine(DelayedSceneLoad(2f));
+    }
+
+    IEnumerator DelayedSceneLoad(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // 加載下一個場景
+        LoadNextScene();
+    }
+
+
+    void LoadNextScene()
+    {
+        // 加載下一個場景
+        LevelManager.Instance.LoadNextLevel();
+        // 在加载下一个场景后恢复计时器
     }
 }

@@ -30,13 +30,15 @@ namespace TS.GazeInteraction
 
         public delegate void OnActivated(GazeInteractable interactable);
         public event OnActivated Activated;
+
         public CheckboxController checkboxController;
-        public TimerManager timerManager; // 引用计时器管理器
+        public TimerManager timerManager; // 引用計時器管理器
 
         [Header("Configuration")]
         [SerializeField] private bool _isActivable;
         [SerializeField] private float _exitDelay;
         [SerializeField] public Image successImage;
+        [SerializeField] public Image loadingImage; // 新增的圖片
         [SerializeField] public float displayDuration = 6f;
         [SerializeField] public SoundController soundController;
 
@@ -68,13 +70,15 @@ namespace TS.GazeInteraction
             _collider = GetComponent<Collider>();
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            if(_collider == null) { throw new System.Exception("Missing Collider"); }
+            if (_collider == null) { throw new System.Exception("Missing Collider"); }
 #endif
         }
+
         private void Start()
         {
             enabled = false;
-            successImage.enabled = false; // 開始時禁用圖片
+            successImage?.gameObject.SetActive(false); // 開始時禁用圖片
+            loadingImage?.gameObject.SetActive(false); // 隱藏 loadingImage
         }
 
         /// <summary>
@@ -95,29 +99,25 @@ namespace TS.GazeInteraction
 
             Activated?.Invoke(this);
             OnGazeActivated?.Invoke();
-            soundController.PlaySound2();
-            
-            if (timerManager != null)
-            timerManager.PauseTimer();
+            soundController?.PlaySound2();
+            checkboxController?.TriggerEvent();
+            timerManager?.PauseTimer();
 
-            if (successImage != null)
-            {
-                successImage.enabled = true; // 啟用 Image 顯示
-                StartCoroutine(HideSuccessImageAfterDelayAndLoadScene());
-            }
+            successImage?.gameObject.SetActive(true); // 啟用 Image 顯示
+            StartCoroutine(HideSuccessImageAfterDelayAndLoadScene());
         }
 
         private IEnumerator HideSuccessImageAfterDelayAndLoadScene()
         {
-            if (checkboxController != null)
-            {
-                checkboxController.TriggerEvent();
-            }
+            checkboxController?.TriggerEvent();
+
             // 等待指定時間
             yield return new WaitForSeconds(displayDuration);
 
             // 隱藏 Image
-            successImage.enabled = false;
+            successImage?.gameObject.SetActive(false);
+            loadingImage?.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2F);
 
             // 加載下一個場景
             LoadNextScene();
@@ -156,6 +156,7 @@ namespace TS.GazeInteraction
 
             OnGazeStay?.Invoke();
         }
+
         /// <summary>
         /// Called by the GazeInteractor when the gaze exits this Interactable.
         /// Invokes the Exit events.

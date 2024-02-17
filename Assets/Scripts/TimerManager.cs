@@ -9,9 +9,9 @@ public class TimerManager : MonoBehaviour
 
     public TextMeshProUGUI timerText;
     public GameObject selectedImage; // 你選擇的顯示圖片的 GameObject
-    private float countdownTime = 60f;
-    private float currentTime;
-    private bool isTimerPaused = false;
+    public float countdownTime = 60f; // 將計時器初始時間設置為public
+    public float currentTime; // 將當前時間設置為public
+    public bool isTimerPaused = false; // 將計時器暫停狀態設置為public
 
     private Transform Cameratransform;
     private Vector2 windowOffset = new Vector2(5f, 0.8f);
@@ -29,7 +29,7 @@ public class TimerManager : MonoBehaviour
         }
         else
         {
-            // 如果实例已存在，则销毁当前对象
+            // 如果實例已存在，則銷毀當前對象
             Destroy(gameObject);
             return;
         }
@@ -89,11 +89,6 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    public float GetRemainingTime()
-    {
-        return currentTime;
-    }
-
     public void PauseTimer()
     {
         isTimerPaused = true;
@@ -116,6 +111,16 @@ public class TimerManager : MonoBehaviour
         }
     }
 
+    // 公共Getter方法
+    public float GetCurrentTime()
+    {
+        return currentTime;
+    }
+
+    public bool IsTimerPaused()
+    {
+        return isTimerPaused;
+    }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

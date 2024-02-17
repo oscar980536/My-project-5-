@@ -69,14 +69,16 @@ public class LevelManager : MonoBehaviour
 
             List<string> scenesToLoad = levelsData[currentLevelIndex].scenes;
             StartCoroutine(LoadScenesAsync(scenesToLoad));
-            currentLevelIndex++;
         }
         else
         {
             Debug.Log("All levels are loaded.");
-            SceneManager.LoadScene("end");
             // 如果已经加载完所有关卡，可以在这里执行其他操作，比如显示游戏结束画面等
+            SceneManager.LoadScene("end");
         }
+
+        // 更新关卡索引
+        currentLevelIndex++;
     }
 
     IEnumerator LoadScenesAsync(List<string> scenesToLoad)

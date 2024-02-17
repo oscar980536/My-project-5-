@@ -164,7 +164,9 @@ Transform:
   m_LocalPosition: {x: 59.765, y: 7.98, z: -205.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 451793534}
+  - {fileID: 1013295399}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &203844586
@@ -395,6 +397,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 1028704961}
   selectedImage: {fileID: 1121517769}
+  countdownTime: 60
+  currentTime: 0
+  isTimerPaused: 0
   windowAnchor: 1
   distance: 2.5
 --- !u!23 &451793530
@@ -509,18 +514,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451793528}
-  m_LocalRotation: {x: 0, y: 0.42949626, z: 0, w: 0.9030687}
-  m_LocalPosition: {x: 0, y: 0, z: -203.68}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalRotation: {x: -0, y: 0.42949626, z: -0, w: 0.9030687}
+  m_LocalPosition: {x: 0, y: 0, z: 1.550003}
+  m_LocalScale: {x: 0.009999999, y: 0.01, z: 0.009999999}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1028704963}
   - {fileID: 1121517772}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 137852107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 62.3, y: 10.33}
+  m_AnchoredPosition: {x: 2.534996, y: 2.3500004}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &615767970
@@ -538,7 +543,6 @@ GameObject:
   - component: {fileID: 615767975}
   - component: {fileID: 615767978}
   - component: {fileID: 615767977}
-  - component: {fileID: 615767979}
   - component: {fileID: 615767980}
   m_Layer: 5
   m_Name: Canvas
@@ -686,7 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c40e624037695b4293c3fba97842899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkboxController: {fileID: 0}
+  toggles: []
   image1: {fileID: 1057666703}
   image2: {fileID: 1343479807}
   image3: {fileID: 310773479}
@@ -702,19 +706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d5b28690434fb488ecc437d9d818cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &615767979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615767970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f7590d3a6c4c442b75a8ceaea8cfd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkboxEventCount: 0
 --- !u!114 &615767980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -902,12 +893,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013295397}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 61.685753, y: 7.959791, z: -203.80145}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.9207535, y: -0.020208836, z: 1.4285431}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 137852107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1028704960
 GameObject:
@@ -3068,6 +3059,4 @@ SceneRoots:
   - {fileID: 1598438978}
   - {fileID: 667266889}
   - {fileID: 615767974}
-  - {fileID: 1013295399}
-  - {fileID: 451793534}
   - {fileID: 137852107}
