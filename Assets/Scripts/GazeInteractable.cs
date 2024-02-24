@@ -31,8 +31,7 @@ namespace TS.GazeInteraction
         public delegate void OnActivated(GazeInteractable interactable);
         public event OnActivated Activated;
 
-        public CheckboxController checkboxController;
-        public TimerManager timerManager; // 引用計時器管理器
+        
 
         [Header("Configuration")]
         [SerializeField] private bool _isActivable;
@@ -41,6 +40,7 @@ namespace TS.GazeInteraction
         [SerializeField] public Image loadingImage; // 新增的圖片
         [SerializeField] public float displayDuration = 6f;
         [SerializeField] public SoundController soundController;
+        [SerializeField] public CheckboxController checkboxController;
 
         [Header("Events")]
         public UnityEvent OnGazeEnter;
@@ -100,17 +100,14 @@ namespace TS.GazeInteraction
             Activated?.Invoke(this);
             OnGazeActivated?.Invoke();
             soundController?.PlaySound2();
-            checkboxController?.TriggerEvent();
-            timerManager?.PauseTimer();
-
+            checkboxController.TriggerEvent();
+            EventCounter.Instance.TriggerEvent();
             successImage?.gameObject.SetActive(true); // 啟用 Image 顯示
             StartCoroutine(HideSuccessImageAfterDelayAndLoadScene());
         }
 
         private IEnumerator HideSuccessImageAfterDelayAndLoadScene()
         {
-            checkboxController?.TriggerEvent();
-
             // 等待指定時間
             yield return new WaitForSeconds(displayDuration);
 

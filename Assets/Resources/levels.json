@@ -1,0 +1,52 @@
+﻿{
+  "levels": [
+    {
+      "level": 1,
+      "scenes": [
+        "Level_03"
+      ]
+    },
+    {
+      "level": 2,
+      "scenes": [
+        "Level_02"
+      ]
+    },
+    {
+      "level": 3,
+      "scenes": [
+        "Level_01"
+      ]
+    },
+    {
+      "level": 4,
+      "scenes": [
+        "Level_05"
+      ]
+    },
+    {
+      "level": 5,
+      "scenes": [
+        "Level_08_9"
+      ]
+    },
+    {
+      "level": 6,
+      "scenes": [
+        "Level_18"
+      ]
+    },
+        {
+      "level": 7,
+      "scenes": [
+        "Level_04"
+      ]
+    },
+    {
+      "level": 8,
+      "scenes": [
+        "end"
+      ]
+    }
+  ]
+}

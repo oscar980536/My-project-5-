@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using UnityEngine.Networking;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,6 +11,9 @@ public class LevelManager : MonoBehaviour
 
     public List<LevelData> levelsData = new List<LevelData>();
     private int currentLevelIndex = 0;
+
+    // Google Sheets 数据 URL
+    public string googleSheetUrl = "https://script.google.com/macros/s/AKfycbz4kLOhY6PFzWmiDftDz2A2S93hPTSslDSPYbVS4Id-9xT9P9FoL3SLkbU1V1hiHvriCA/exec";
 
     private void Awake()
     {
@@ -29,30 +32,40 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         // 加载关卡数据
-        LoadLevelData();
+        LoadLevelDataFromGoogleSheet();
     }
 
-    void LoadLevelData()
+    void LoadLevelDataFromGoogleSheet()
     {
-        string filePath = Path.Combine(Application.dataPath, "Level", "levels.json");
-        string jsonContent;
+        StartCoroutine(DownloadGoogleSheetData());
+    }
 
-        if (Application.platform == RuntimePlatform.Android)
+    IEnumerator DownloadGoogleSheetData()
+    {
+        // 发送网络请求获取 Google Sheets 数据
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(googleSheetUrl))
         {
-            // 在Android平台上使用UnityWebRequest来读取JSON文件
-            UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(filePath);
-            www.SendWebRequest();
-            while (!www.isDone) { }
-            jsonContent = www.downloadHandler.text;
-        }
-        else
-        {
-            // 在其他平台上直接使用StreamReader来读取JSON文件
-            jsonContent = System.IO.File.ReadAllText(filePath);
-        }
+            yield return webRequest.SendWebRequest();
 
-        // 解析JSON数据
-        LevelList levelList = JsonUtility.FromJson<LevelList>(jsonContent);
+            if (webRequest.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("Failed to download Google Sheets data: " + webRequest.error);
+            }
+            else
+            {
+                // 将下载的数据解析为关卡数据
+                ParseGoogleSheetData(webRequest.downloadHandler.text);
+            }
+        }
+    }
+
+    void ParseGoogleSheetData(string sheetData)
+    {
+        // 打印获取的数据到控制台
+        Debug.Log("Google Sheets 数据：" + sheetData);
+        LevelList levelList = JsonUtility.FromJson<LevelList>(sheetData);
+
+        // 将 LevelList 中的 levels 赋值给 levelsData
         levelsData = levelList.levels;
     }
 
@@ -70,13 +83,6 @@ public class LevelManager : MonoBehaviour
             List<string> scenesToLoad = levelsData[currentLevelIndex].scenes;
             StartCoroutine(LoadScenesAsync(scenesToLoad));
         }
-        else
-        {
-            Debug.Log("All levels are loaded.");
-            // 如果已经加载完所有关卡，可以在这里执行其他操作，比如显示游戏结束画面等
-            SceneManager.LoadScene("end");
-        }
-
         // 更新关卡索引
         currentLevelIndex++;
     }

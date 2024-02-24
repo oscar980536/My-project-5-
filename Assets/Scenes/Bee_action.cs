@@ -10,8 +10,7 @@ public class bee_action : MonoBehaviour
     public Animator spider_ani01;
     public Image okImage;
     public Image loadingImage; // 新增的圖片
-    public CheckboxControllers checkboxControllers;
-    public TimerManager timerManager; // 引用计时器管理器
+    public CheckboxController checkboxController;
 
     void Start()
     {
@@ -27,7 +26,9 @@ public class bee_action : MonoBehaviour
             spider_ani01.SetBool("spider_fly", true);
 
             // 在 OnTriggerEnter 觸發時立即執行這些邏輯
-            checkboxControllers.TriggerEvent();
+            checkboxController.TriggerEvent();
+            EventCounter.Instance.TriggerEvent();
+            EventCounter.Instance.TriggerEvent(); // 增加第二次触发
             okImage.gameObject.SetActive(true);
 
             // 延遲 2 秒後顯示 loadingImage
@@ -40,6 +41,7 @@ public class bee_action : MonoBehaviour
         yield return new WaitForSeconds(delay); // 延遲 2 秒
 
         // 顯示 loadingImage
+        okImage.gameObject.SetActive(false);
         loadingImage.gameObject.SetActive(true);
 
         // 延遲 2 秒後加載下一個場景
@@ -56,11 +58,6 @@ public class bee_action : MonoBehaviour
 
     void LoadNextScene()
     {
-        if (timerManager != null)
-        {
-            timerManager.PauseTimer();
-        }
-
         // 加載下一個場景
         LevelManager.Instance.LoadNextLevel();
 

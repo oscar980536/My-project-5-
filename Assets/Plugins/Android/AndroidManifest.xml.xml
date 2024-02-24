@@ -1,0 +1,13 @@
+﻿<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yourcompany.yourapp">
+
+    <!-- 添加外部存储权限声明 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 其他权限声明 -->
+
+    <application>
+        <!-- 应用程序配置 -->
+    </application>
+</manifest>

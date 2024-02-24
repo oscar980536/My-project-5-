@@ -8,10 +8,9 @@ public class TimerManager : MonoBehaviour
     public static TimerManager Instance;
 
     public TextMeshProUGUI timerText;
-    public GameObject selectedImage; // 你選擇的顯示圖片的 GameObject
-    public float countdownTime = 60f; // 將計時器初始時間設置為public
-    public float currentTime; // 將當前時間設置為public
-    public bool isTimerPaused = false; // 將計時器暫停狀態設置為public
+    public float countdownTime = 60f;
+    public float currentTime;
+    public bool isTimerPaused = false;
 
     private Transform Cameratransform;
     private Vector2 windowOffset = new Vector2(5f, 0.8f);
@@ -19,6 +18,8 @@ public class TimerManager : MonoBehaviour
     private Transform window;
     private float windowFollowSpeed = 10f;
     public float distance = 2.5f;
+
+    private bool timerActive = true; // 新增一個標誌來指示計時器是否處於活動狀態
 
     private void Awake()
     {
@@ -29,17 +30,12 @@ public class TimerManager : MonoBehaviour
         }
         else
         {
-            // 如果實例已存在，則銷毀當前對象
             Destroy(gameObject);
             return;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        // 初始時尋找主相機的 Transform
         FindMainCameraTransform();
-
-        // 在 Awake 中初始化 window
         window = transform;
     }
 
@@ -47,16 +43,11 @@ public class TimerManager : MonoBehaviour
     {
         currentTime = countdownTime;
         UpdateTimerText();
-
-        if (selectedImage != null)
-        {
-            selectedImage.SetActive(false);
-        }
     }
 
     private void Update()
     {
-        if (!isTimerPaused)
+        if (!isTimerPaused && timerActive) // 增加條件以檢查計時器是否仍然應該更新
         {
             if (currentTime > 0f)
             {
@@ -66,26 +57,16 @@ public class TimerManager : MonoBehaviour
             else
             {
                 Debug.Log("Time's up!");
-                ShowSelectedImage(); // 顯示選定的圖片
-                currentTime = 0f; // 將時間設置為 0，以防止負數顯示
+                currentTime = 0f;
                 UpdateTimerText();
                 SceneManager.LoadScene("end");
+                timerActive = false; // 設置標誌為false，停止計時器更新
             }
         }
 
-        // 添加相機控制
         if (Cameratransform != null)
         {
             setWindowPositon();
-        }
-    }
-    private void ShowSelectedImage()
-    {
-        // 在這裡添加顯示選定圖片的程式碼
-        // 例如，啟用 selectedImage 物件
-        if (selectedImage != null)
-        {
-            selectedImage.SetActive(true);
         }
     }
 
@@ -111,7 +92,6 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    // 公共Getter方法
     public float GetCurrentTime()
     {
         return currentTime;
@@ -124,10 +104,7 @@ public class TimerManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 在場景加載後重新尋找主相機的 Transform
         FindMainCameraTransform();
-
-        // 在 OnSceneLoaded 中重新初始化 window
         window = transform;
 
         if (Instance == null)
@@ -136,7 +113,6 @@ public class TimerManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        // 恢复计时器，但只有在计时器当前处于暂停状态时才恢复
         if (isTimerPaused)
         {
             ResumeTimer();
@@ -161,7 +137,6 @@ public class TimerManager : MonoBehaviour
     {
         if (timerText != null)
         {
-            // 如果時間小於零，顯示為 00:00
             if (currentTime < 0f)
             {
                 timerText.text = "00:00";
