@@ -8,7 +8,7 @@ public class TimerManager : MonoBehaviour
     public static TimerManager Instance;
 
     public TextMeshProUGUI timerText;
-    public float countdownTime = 60f;
+    public float countdownTime = 100f;
     public float currentTime;
     public bool isTimerPaused = false;
 
@@ -45,30 +45,35 @@ public class TimerManager : MonoBehaviour
         UpdateTimerText();
     }
 
-    private void Update()
+private void Update()
+{
+    if (!isTimerPaused && timerActive) // 增加條件以檢查計時器是否仍然應該更新
     {
-        if (!isTimerPaused && timerActive) // 增加條件以檢查計時器是否仍然應該更新
+        if (currentTime > 0f)
         {
-            if (currentTime > 0f)
-            {
-                currentTime -= Time.deltaTime;
-                UpdateTimerText();
-            }
-            else
-            {
-                Debug.Log("Time's up!");
-                currentTime = 0f;
-                UpdateTimerText();
-                SceneManager.LoadScene("end");
-                timerActive = false; // 設置標誌為false，停止計時器更新
+            currentTime -= Time.deltaTime;
+            UpdateTimerText();
+        }
+        else
+        {
+            Debug.Log("Time's up!");
+            currentTime = 0f;
+            UpdateTimerText();
+            string currentScene = SceneManager.GetActiveScene().name;
+                if (currentScene != "end" && currentScene != "Level_06" && currentScene != "Level_07")
+                {
+                    SceneManager.LoadScene("end");
+                    timerActive = false;
+                }
             }
         }
 
         if (Cameratransform != null)
-        {
-            setWindowPositon();
-        }
+    {
+        setWindowPositon();
     }
+}
+
 
     public void PauseTimer()
     {
@@ -139,13 +144,11 @@ public class TimerManager : MonoBehaviour
         {
             if (currentTime < 0f)
             {
-                timerText.text = "00:00";
+                timerText.text = "00"; // 当时间小于 0 时，显示为 "00"
             }
             else
             {
-                TimeSpan timeSpan = TimeSpan.FromSeconds(currentTime);
-                string formattedTime = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
-                timerText.text = formattedTime;
+                timerText.text = Mathf.CeilToInt(currentTime).ToString(); // 将 currentTime 的整数部分直接显示在文本框中
             }
         }
     }

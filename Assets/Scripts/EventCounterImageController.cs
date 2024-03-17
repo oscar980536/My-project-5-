@@ -3,53 +3,73 @@ using UnityEngine.UI;
 
 public class EventCounterImageController : MonoBehaviour
 {
-    public Image image1; // 图片1
-    public Image image2; // 图片2
-    public Image image3; // 图片3
+    public Image image1; // 圖片1
+    public Image image2; // 圖片2
+    public Image image3; // 圖片3
 
-    private EventCounter eventCounter; // 对 EventCounter 的引用
+    public AudioClip sound1; // 聲音1
+    public AudioClip sound2; // 聲音2
+    public AudioClip sound3; // 聲音3
+
+
+    private EventCounter eventCounter; // 對 EventCounter 的引用
+    private AudioSource audioSource; // 聲音源
 
     private void Start()
     {
-        eventCounter = EventCounter.Instance; // 获取 EventCounter 的实例
+        eventCounter = EventCounter.Instance; // 獲取 EventCounter 的實例
+        audioSource = GetComponent<AudioSource>(); // 獲取 AudioSource
 
-        // 订阅 EventCounter 的事件，在计数器更新时调用 UpdateImage 方法
+        // 訂閱 EventCounter 的事件，在計數器更新時調用 UpdateImage 方法
         eventCounter.OnEventTriggered += UpdateImage;
 
-        // 初始更新图片
+        // 初始化更新圖片和聲音
         UpdateImage(eventCounter.GetEventCount());
     }
 
-    // 根据计数器的值更新图片
+    // 根據計數器的值更新圖片和播放對應的聲音
     private void UpdateImage(int count)
     {
         if (count >= 0 && count <= 3)
         {
-            // 显示图片1，隐藏其他图片
+            // 顯示圖片1，隱藏其他圖片
             image1.gameObject.SetActive(true);
             image2.gameObject.SetActive(false);
             image3.gameObject.SetActive(false);
+
+            // 播放聲音1
+            PlaySound(sound1);
         }
         else if (count >= 4 && count <= 8)
         {
-            // 显示图片2，隐藏其他图片
+            // 顯示圖片2，隱藏其他圖片
             image1.gameObject.SetActive(false);
             image2.gameObject.SetActive(true);
             image3.gameObject.SetActive(false);
+
+            // 播放聲音2
+            PlaySound(sound2);
         }
         else if (count == 9)
         {
-            // 显示图片3，隐藏其他图片
+            // 顯示圖片3，隱藏其他圖片
             image1.gameObject.SetActive(false);
             image2.gameObject.SetActive(false);
             image3.gameObject.SetActive(true);
+
+            PlaySound(sound3);
+
         }
-        // 可以根据需要添加其他条件和图片
+        // 可以根據需要添加其他條件和圖片
     }
 
-    // 在销毁时取消订阅事件，防止内存泄漏
-    private void OnDestroy()
+    // 播放聲音
+    private void PlaySound(AudioClip clip)
     {
-        eventCounter.OnEventTriggered -= UpdateImage;
+        if (clip != null && audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
 }

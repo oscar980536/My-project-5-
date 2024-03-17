@@ -1,19 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class CheckboxControllers : MonoBehaviour
 {
     public Toggle checkbox1;
     public Toggle checkbox2;
-    private int checkbox1Count = 0;
-    private int checkbox2Count = 0;
-
-    public event Action<int, int> OnEventTriggered;
 
     void Start()
     {
-        // ½T«O checkbox ¤£³Q¹w³]¤Ä¿ï
+        // ç¡®ä¿ checkbox ä¸è¢«é»˜è®¤å‹¾é€‰
         if (checkbox1 != null)
         {
             checkbox1.isOn = false;
@@ -24,24 +19,19 @@ public class CheckboxControllers : MonoBehaviour
         }
     }
 
-    // ¦¹¨ç¼Æ±N¦b¨Æ¥óÄ²µo®É³Q©I¥s
-    public void TriggerEvent()
+    // æ­¤å‡½æ•°å°†åœ¨äº‹ä»¶è§¦å‘æ—¶è¢«è°ƒç”¨
+    public  void TriggerEvent()
     {
-        // ÀË¬d checkbox1 ¬O§_¦s¦b¨Ã­pºâ¤Ä¿ï¦¸¼Æ
-        if (checkbox1 != null && !checkbox1.isOn)
+        // æ£€æŸ¥ checkbox1 æ˜¯å¦å­˜åœ¨å¹¶å‹¾é€‰
+        if (checkbox1 != null)
         {
-            checkbox1Count++;
-            checkbox1.isOn = true;
+            checkbox1.isOn = true; // è‹¥è¦å–æ¶ˆå‹¾é€‰ï¼Œä½¿ç”¨ checkbox.isOn = false;
         }
 
-        // ÀË¬d checkbox2 ¬O§_¦s¦b¨Ã­pºâ¤Ä¿ï¦¸¼Æ
-        if (checkbox2 != null && !checkbox2.isOn)
+        // æ£€æŸ¥ checkbox2 æ˜¯å¦å­˜åœ¨å¹¶å‹¾é€‰
+        if (checkbox2 != null)
         {
-            checkbox2Count++;
-            checkbox2.isOn = true;
+            checkbox2.isOn = true; // è‹¥è¦å–æ¶ˆå‹¾é€‰ï¼Œä½¿ç”¨ checkbox.isOn = false;
         }
-
-        // Ä²µo¨Æ¥ó¡A¶Ç»¼¨â­Ó checkbox ªº¤Ä¿ï¦¸¼Æ
-        OnEventTriggered?.Invoke(checkbox1Count, checkbox2Count);
     }
 }

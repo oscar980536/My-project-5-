@@ -9,13 +9,13 @@ public class bee_action : MonoBehaviour
     public Animator Bee_ani_patch_01;
     public Animator spider_ani01;
     public Image okImage;
-    public Image loadingImage; // 新增的圖片
-    public CheckboxController checkboxController;
+    public SoundController soundController;
+    public Button myButton; // 新增的 Button
+
 
     void Start()
     {
         okImage.gameObject.SetActive(false);
-        loadingImage.gameObject.SetActive(false); // 隱藏 loadingImage
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,41 +26,11 @@ public class bee_action : MonoBehaviour
             spider_ani01.SetBool("spider_fly", true);
 
             // 在 OnTriggerEnter 觸發時立即執行這些邏輯
-            checkboxController.TriggerEvent();
             EventCounter.Instance.TriggerEvent();
             EventCounter.Instance.TriggerEvent(); // 增加第二次触发
             okImage.gameObject.SetActive(true);
-
-            // 延遲 2 秒後顯示 loadingImage
-            StartCoroutine(DelayBeforeShowingLoadingImage(2f));
+            soundController?.PlaySound2();
+            myButton.gameObject.SetActive(true);
         }
-    }
-
-    IEnumerator DelayBeforeShowingLoadingImage(float delay)
-    {
-        yield return new WaitForSeconds(delay); // 延遲 2 秒
-
-        // 顯示 loadingImage
-        okImage.gameObject.SetActive(false);
-        loadingImage.gameObject.SetActive(true);
-
-        // 延遲 2 秒後加載下一個場景
-        StartCoroutine(DelayedSceneLoad(2f));
-    }
-
-    IEnumerator DelayedSceneLoad(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        // 加載下一個場景
-        LoadNextScene();
-    }
-
-    void LoadNextScene()
-    {
-        // 加載下一個場景
-        LevelManager.Instance.LoadNextLevel();
-
-        // 在加载下一个场景后恢复计时器
     }
 }

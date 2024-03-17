@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit;
 #endregion
 
 namespace TS.GazeInteraction
@@ -37,10 +38,10 @@ namespace TS.GazeInteraction
         [SerializeField] private bool _isActivable;
         [SerializeField] private float _exitDelay;
         [SerializeField] public Image successImage;
-        [SerializeField] public Image loadingImage; // 新增的圖片
-        [SerializeField] public float displayDuration = 6f;
         [SerializeField] public SoundController soundController;
-        [SerializeField] public CheckboxController checkboxController;
+        [SerializeField] public Button myButton; // 新增的 Button
+
+
 
         [Header("Events")]
         public UnityEvent OnGazeEnter;
@@ -78,7 +79,7 @@ namespace TS.GazeInteraction
         {
             enabled = false;
             successImage?.gameObject.SetActive(false); // 開始時禁用圖片
-            loadingImage?.gameObject.SetActive(false); // 隱藏 loadingImage
+            myButton.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -100,30 +101,12 @@ namespace TS.GazeInteraction
             Activated?.Invoke(this);
             OnGazeActivated?.Invoke();
             soundController?.PlaySound2();
-            checkboxController.TriggerEvent();
             EventCounter.Instance.TriggerEvent();
             successImage?.gameObject.SetActive(true); // 啟用 Image 顯示
-            StartCoroutine(HideSuccessImageAfterDelayAndLoadScene());
+            myButton.gameObject.SetActive(true);
         }
 
-        private IEnumerator HideSuccessImageAfterDelayAndLoadScene()
-        {
-            // 等待指定時間
-            yield return new WaitForSeconds(displayDuration);
 
-            // 隱藏 Image
-            successImage?.gameObject.SetActive(false);
-            loadingImage?.gameObject.SetActive(true);
-            yield return new WaitForSeconds(2F);
-
-            // 加載下一個場景
-            LoadNextScene();
-        }
-
-        private void LoadNextScene()
-        {
-            LevelManager.Instance.LoadNextLevel();
-        }
 
         /// <summary>
         /// Called by the GazeInteractor when the gaze enters this Interactable.
