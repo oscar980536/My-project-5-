@@ -9,6 +9,7 @@ public class bee_action : MonoBehaviour
     public Animator Bee_ani_patch_01;
     public Animator spider_ani01;
     public Image okImage;
+    public Image bullerImage;
     public SoundController soundController;
     public Button myButton; // 新增的 Button
 
@@ -16,6 +17,7 @@ public class bee_action : MonoBehaviour
     void Start()
     {
         okImage.gameObject.SetActive(false);
+        bullerImage.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,6 +31,7 @@ public class bee_action : MonoBehaviour
             EventCounter.Instance.TriggerEvent();
             EventCounter.Instance.TriggerEvent(); // 增加第二次触发
             okImage.gameObject.SetActive(true);
+            bullerImage.gameObject.SetActive(true);
             soundController?.PlaySound2();
             myButton.gameObject.SetActive(true);
         }

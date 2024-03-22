@@ -37,7 +37,8 @@ namespace TS.GazeInteraction
         [Header("Configuration")]
         [SerializeField] private bool _isActivable;
         [SerializeField] private float _exitDelay;
-        [SerializeField] public Image successImage;
+        [SerializeField] public Image okImage;
+        [SerializeField] public Image bullerImage;
         [SerializeField] public SoundController soundController;
         [SerializeField] public Button myButton; // 新增的 Button
 
@@ -78,7 +79,8 @@ namespace TS.GazeInteraction
         private void Start()
         {
             enabled = false;
-            successImage?.gameObject.SetActive(false); // 開始時禁用圖片
+            okImage.gameObject.SetActive(false); // 開始時禁用圖片
+            bullerImage.gameObject.SetActive(false);
             myButton.gameObject.SetActive(false);
         }
 
@@ -102,7 +104,8 @@ namespace TS.GazeInteraction
             OnGazeActivated?.Invoke();
             soundController?.PlaySound2();
             EventCounter.Instance.TriggerEvent();
-            successImage?.gameObject.SetActive(true); // 啟用 Image 顯示
+            okImage.gameObject.SetActive(true); // 啟用 Image 顯示
+            bullerImage.gameObject.SetActive(true);
             myButton.gameObject.SetActive(true);
         }
 

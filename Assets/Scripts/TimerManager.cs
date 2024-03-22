@@ -142,13 +142,21 @@ private void Update()
     {
         if (timerText != null)
         {
-            if (currentTime < 0f)
+            string currentScene = SceneManager.GetActiveScene().name;
+            if (currentScene == "end") // 如果当前场景是 "end"，则不显示时间
             {
-                timerText.text = "00"; // 当时间小于 0 时，显示为 "00"
+                timerText.text = "";
             }
             else
             {
-                timerText.text = Mathf.CeilToInt(currentTime).ToString(); // 将 currentTime 的整数部分直接显示在文本框中
+                if (currentTime < 0f)
+                {
+                    timerText.text = "時間： 00"; // 当时间小于 0 时，显示为 "时间: 00"
+                }
+                else
+                {
+                    timerText.text = "時間： " + Mathf.CeilToInt(currentTime).ToString(); // 显示为 "时间: XXX"，XXX 为当前时间的整数部分
+                }
             }
         }
     }
