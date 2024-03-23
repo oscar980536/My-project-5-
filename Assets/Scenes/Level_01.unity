@@ -3277,7 +3277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 2049751556}
-  countdownTime: 300
+  countdownTime: 100
   currentTime: 0
   isTimerPaused: 0
   windowAnchor: 1
