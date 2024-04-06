@@ -14,7 +14,7 @@ namespace TS.GazeInteraction
         [Header("Configuration")]
         [SerializeField] private float _maxDetectionDistance;
         [SerializeField] private float _minDetectionDistance;
-        [SerializeField] private float _timeToActivate = 1.0f;
+        [SerializeField] private float _timeToActivate = 2.0f;
         [SerializeField] private LayerMask _layerMask;
 
         private Ray _ray;

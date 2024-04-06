@@ -28,8 +28,6 @@ public class bee_action : MonoBehaviour
             spider_ani01.SetBool("spider_fly", true);
 
             // 在 OnTriggerEnter 觸發時立即執行這些邏輯
-            EventCounter.Instance.TriggerEvent();
-            EventCounter.Instance.TriggerEvent(); // 增加第二次触发
             okImage.gameObject.SetActive(true);
             bullerImage.gameObject.SetActive(true);
             soundController?.PlaySound2();

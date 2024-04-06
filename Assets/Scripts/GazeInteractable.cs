@@ -103,7 +103,6 @@ namespace TS.GazeInteraction
             Activated?.Invoke(this);
             OnGazeActivated?.Invoke();
             soundController?.PlaySound2();
-            EventCounter.Instance.TriggerEvent();
             okImage.gameObject.SetActive(true); // 啟用 Image 顯示
             bullerImage.gameObject.SetActive(true);
             myButton.gameObject.SetActive(true);

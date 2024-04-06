@@ -7,10 +7,12 @@ public class TimerFillAmount : MonoBehaviour
     public Image fillImage; // 图像填充量对象
 
     private float timer; // 计时器
+    private bool levelLoaded = false; // 是否已加载下一个关卡
 
     void Start()
     {
         timer = 0f;
+        levelLoaded = false;
     }
 
     void Update()
@@ -22,10 +24,11 @@ public class TimerFillAmount : MonoBehaviour
         float fillAmount = timer / duration;
         fillImage.fillAmount = fillAmount;
 
-        // 如果计时器达到持续时间，可以在此执行其他操作
-        if (timer >= duration)
+        // 如果计时器达到持续时间，且还没有加载过下一个关卡，则执行操作
+        if (timer >= duration && !levelLoaded)
         {
             LevelManager.Instance.LoadNextLevel();
+            levelLoaded = true; // 标记为已加载下一个关卡，避免重复加载
         }
     }
 }

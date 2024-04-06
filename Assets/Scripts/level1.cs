@@ -22,7 +22,6 @@ public class level1 : MonoBehaviour
         {
             okImage.gameObject.SetActive(true);
             bullerImage.gameObject.SetActive(true);
-            EventCounter.Instance.TriggerEvent();
             soundController?.PlaySound2();
             myButton.gameObject.SetActive(true);
         }

@@ -8,7 +8,7 @@ public class TimerManager : MonoBehaviour
     public static TimerManager Instance;
 
     public TextMeshProUGUI timerText;
-    public float countdownTime = 100f;
+    public float countdownTime = 300f;
     public float currentTime;
     public bool isTimerPaused = false;
 
@@ -60,9 +60,9 @@ private void Update()
             currentTime = 0f;
             UpdateTimerText();
             string currentScene = SceneManager.GetActiveScene().name;
-                if (currentScene != "end" && currentScene != "Level_06" && currentScene != "Level_07")
+                if (currentScene != "end" && currentScene != "end1" && currentScene != "Level_06" && currentScene != "Level_07")
                 {
-                    SceneManager.LoadScene("end");
+                    SceneManager.LoadScene("end1");
                     timerActive = false;
                 }
             }
@@ -143,7 +143,7 @@ private void Update()
         if (timerText != null)
         {
             string currentScene = SceneManager.GetActiveScene().name;
-            if (currentScene == "end") // 如果当前场景是 "end"，则不显示时间
+            if (currentScene != "end" && currentScene != "end1") // 如果当前场景是 "end"，则不显示时间
             {
                 timerText.text = "";
             }

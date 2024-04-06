@@ -50,7 +50,6 @@ public class Level4 : MonoBehaviour
             // 觸發 CheckboxController 中的事件
             okImage.gameObject.SetActive(true);
             bullerImage.gameObject.SetActive(true);
-            EventCounter.Instance.TriggerEvent();
             soundController?.PlaySound2();
             myButton.gameObject.SetActive(true);
         }

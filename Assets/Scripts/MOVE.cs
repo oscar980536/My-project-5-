@@ -19,7 +19,7 @@ public class move : MonoBehaviour
     [SerializeField] private Vector3 PositionCurrentFrameRightHand;
 
     //Speed
-    [SerializeField] private float Speed = 170;
+    [SerializeField] private float Speed = 150;
     [SerializeField] private float HandSpeed;
 
     void Start()

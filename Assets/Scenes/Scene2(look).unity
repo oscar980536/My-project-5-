@@ -2348,7 +2348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxDetectionDistance: 6.64
   _minDetectionDistance: 0.1
-  _timeToActivate: 3
+  _timeToActivate: 2
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -16281,8 +16281,8 @@ GameObject:
   - component: {fileID: 436557320}
   - component: {fileID: 436557319}
   - component: {fileID: 436557318}
-  - component: {fileID: 436557317}
   - component: {fileID: 436557316}
+  - component: {fileID: 436557323}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -16309,18 +16309,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &436557317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436557315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f25e01afa1ebb94fa6b8596a2dd30ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &436557318
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16449,6 +16437,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &436557323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436557315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49135f63cc840d43b8b21c577e1ae6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &440312210
 GameObject:
   m_ObjectHideFlags: 0
@@ -22394,7 +22394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8c8b77fa3d9606849a4275ab2bddaeb5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f789c5bd63fdaba46b31b43b5637f866, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -46059,7 +46059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598e4b98de1341448969cf13b46594c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound1: {fileID: 8300000, guid: ef78d96909572ae43bb1217781d6c2ef, type: 3}
+  sound1: {fileID: 8300000, guid: f42ecd75c4e90ac44852752dfee70420, type: 3}
   sound2: {fileID: 8300000, guid: 713866af6c68e5246811038e08986dbd, type: 3}
 --- !u!4 &1717482844
 Transform:

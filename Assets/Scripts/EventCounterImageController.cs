@@ -40,7 +40,7 @@ public class EventCounterImageController : MonoBehaviour
             // 播放聲音1
             PlaySound(sound1);
         }
-        else if (count >= 4 && count <= 8)
+        else if (count >= 4 && count <= 7)
         {
             // 顯示圖片2，隱藏其他圖片
             image1.gameObject.SetActive(false);
@@ -50,7 +50,7 @@ public class EventCounterImageController : MonoBehaviour
             // 播放聲音2
             PlaySound(sound2);
         }
-        else if (count == 9)
+        else if (count >= 8)
         {
             // 顯示圖片3，隱藏其他圖片
             image1.gameObject.SetActive(false);

@@ -36,7 +36,6 @@ public class leaf_action : MonoBehaviour
             stickyObject = other.transform.parent;
             leaf_ani02.SetBool("move", true);
             // 在 OnTriggerEnter 觸發時立即執行這些邏輯
-            EventCounter.Instance.TriggerEvent();
             okImage.gameObject.SetActive(true);
             bullerImage.gameObject.SetActive(true);
             soundController?.PlaySound2();
