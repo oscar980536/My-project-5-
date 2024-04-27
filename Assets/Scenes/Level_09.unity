@@ -21049,7 +21049,7 @@ MonoBehaviour:
   PlayerPositionCurrentFrame: {x: 0, y: 0, z: 0}
   PositionCurrentFrameLeftHand: {x: 0, y: 0, z: 0}
   PositionCurrentFrameRightHand: {x: 0, y: 0, z: 0}
-  Speed: 150
+  Speed: 200
   HandSpeed: 0
 --- !u!143 &1005316578
 CharacterController:
@@ -28274,7 +28274,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.15686275, g: 0.6117647, b: 0.9529412, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

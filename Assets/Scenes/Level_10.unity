@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxDetectionDistance: 3.5
   _minDetectionDistance: 0.1
-  _timeToActivate: 2
+  _timeToActivate: 3
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -70020,7 +70020,7 @@ MonoBehaviour:
   PlayerPositionCurrentFrame: {x: 0, y: 0, z: 0}
   PositionCurrentFrameLeftHand: {x: 0, y: 0, z: 0}
   PositionCurrentFrameRightHand: {x: 0, y: 0, z: 0}
-  Speed: 150
+  Speed: 200
   HandSpeed: 0
 --- !u!143 &1123567761
 CharacterController:

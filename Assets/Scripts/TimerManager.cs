@@ -143,20 +143,20 @@ private void Update()
         if (timerText != null)
         {
             string currentScene = SceneManager.GetActiveScene().name;
-            if (currentScene != "end" && currentScene != "end1") // 如果当前场景是 "end"，则不显示时间
-            {
-                timerText.text = "";
-            }
-            else
+            if (currentScene != "end" && currentScene != "end1" && currentScene != "Level_06" && currentScene != "Level_07") // 只在不是指定场景中显示时间
             {
                 if (currentTime < 0f)
                 {
-                    timerText.text = "時間： 00"; // 当时间小于 0 时，显示为 "时间: 00"
+                    timerText.text = "時間： 00"; // 当时间小于 0 时，显示为 "時間： 00"
                 }
                 else
                 {
-                    timerText.text = "時間： " + Mathf.CeilToInt(currentTime).ToString(); // 显示为 "时间: XXX"，XXX 为当前时间的整数部分
+                    timerText.text = "時間： " + Mathf.CeilToInt(currentTime).ToString(); // 显示为 "時間： XXX"，XXX 为当前时间的整数部分
                 }
+            }
+            else
+            {
+                timerText.text = ""; // 在指定场景中不显示时间
             }
         }
     }

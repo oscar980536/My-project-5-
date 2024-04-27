@@ -114816,7 +114816,7 @@ MonoBehaviour:
   PlayerPositionCurrentFrame: {x: 0, y: 0, z: 0}
   PositionCurrentFrameLeftHand: {x: 0, y: 0, z: 0}
   PositionCurrentFrameRightHand: {x: 0, y: 0, z: 0}
-  Speed: 150
+  Speed: 200
   HandSpeed: 0
 --- !u!143 &2094393805
 CharacterController:
